@@ -57,7 +57,7 @@ while True:
             file = open(cwd+"/"+dosya_ismi, "rb")
             filesize = os.path.getsize(cwd+"/"+dosya_ismi) # dosya boyutunu öğrendik
 
-        baglanti.send(f"{filesize}".encode()) # dosya boyutunu gönderdik
+        #baglanti.send(f"{filesize}".encode()) # dosya boyutunu gönderdik
         
         while True:
             data = file.read(BUFFER) # veriyi okuduk
