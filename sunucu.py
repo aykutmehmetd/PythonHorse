@@ -84,8 +84,13 @@ while True:
         
         try:
             file = open(dosya_ismi, "rb") # dosyayı açtık
-            data = file.read() # veriyi okuduk
-            client_socket.send(data) # dosyayı gönderdik
+
+            while True:
+                data = file.read(BUFFER*4) # veriyi okuduk
+                if not data:
+                    break
+                client_socket.send(data) # veriyi gönderdik
+
             file.close() # dosyayı kapattık
 
             client_socket.close()

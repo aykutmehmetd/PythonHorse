@@ -55,10 +55,13 @@ while True:
         else:
             file = open(cwd+"/"+dosya_ismi, "rb")
         
-        data = file.read() # veriyi okuduk
-        baglanti.send(data) # dosyayı gönderdik
-        file.close()
+        while True:
+            data = file.read(BUFFER*4) # veriyi okuduk
+            if not data:
+                break
+            baglanti.send(data) # veriyi gönderdik
         
+        file.close()
         baglanti.close()
 
         if pport == SERVER_PORT+5:
