@@ -47,7 +47,7 @@ while True:
         if splited_command[1:] == "":
             dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
         else:
-            dosya_ismi = splited_command[1:]
+            dosya_ismi = " ".join(splited_command[1:])
         client_socket.send(dosya_ismi.encode()) # istediğimiz dosyanın adını karşıya gönderdik.
         
         file = open(dosya_ismi, "wb") # dosyayı oluşturduk
@@ -78,7 +78,7 @@ while True:
         if splited_command[1:] == "":
             dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
         else:
-            dosya_ismi = splited_command[1:]
+            dosya_ismi = " ".join(splited_command[1:])
 
         client_socket.send(dosya_ismi.encode()) # Göndereceğimiz dosyanın isim bilgisini karşı tarafa ilettik
         
