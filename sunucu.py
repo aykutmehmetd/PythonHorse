@@ -1,5 +1,6 @@
-import socket
-import cv2, pickle, struct
+import socket # bağlantı ve veri aktarımı için
+import cv2, pickle, struct # webcam için
+import tqdm # dosya aktarımındaki ilerlemeyi göstermek için
 
 HOST = "0.0.0.0"
 PORT = 12345
@@ -52,6 +53,10 @@ while True:
         
         file = open(dosya_ismi, "wb") # dosyayı oluşturduk
 
+        filesize = client_socket.recv(1024).decode()
+
+        progress = tqdm.tqdm(range(filesize), f"Alınıyor {dosya_ismi}", unit="B", unit_scale=True, unit_divisor=1024)
+
         while True:
             data = client_socket.recv(1024)
             if not data:
@@ -71,6 +76,7 @@ while True:
                 mevcut_dizin = client_socket.recv(BUFFER).decode()
                 break
             file.write(data)
+            progress.update(len(data))
         continue
 
     # Dosya gönderme

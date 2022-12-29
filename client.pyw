@@ -52,11 +52,15 @@ while True:
         
         if pl == "Windows":
             file = open(dosya_ismi, "rb") # dosyayı açtık
+            filesize = os.path.getsize(dosya_ismi) # dosya boyutunu öğrendik
         else:
             file = open(cwd+"/"+dosya_ismi, "rb")
+            filesize = os.path.getsize(cwd+"/"+dosya_ismi) # dosya boyutunu öğrendik
+
+        baglanti.send(f"{filesize}".encode()) # dosya boyutunu gönderdik
         
         while True:
-            data = file.read(BUFFER*4) # veriyi okuduk
+            data = file.read(BUFFER) # veriyi okuduk
             if not data:
                 break
             baglanti.send(data) # veriyi gönderdik
