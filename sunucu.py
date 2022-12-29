@@ -31,6 +31,7 @@ print("[+] Çalışma dizini: ", mevcut_dizin)
 while True:
     # Komut satırına yazdığımız komutu alıyoruz
     command = input(f"{mevcut_dizin} $> ")
+    splited_command = command.split()
 
     if not command.strip():
         continue # Boş komut gönderilirse programa döngünün başına dönmesini söylüyoruz
@@ -42,8 +43,11 @@ while True:
         break # komut exit ise döngüyü sonlandırıyoruz.
 
     # Dosya indirme
-    if command.lower() == "indir" or "download":
-        dosya_ismi = input("Dosyanın adını girin: ")
+    if splited_command[0].lower() == "indir" or "download":
+        if splited_command[1:] == "":
+            dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
+        else:
+            dosya_ismi = splited_command[1:]
         client_socket.send(dosya_ismi.encode()) # istediğimiz dosyanın adını karşıya gönderdik.
         
         file = open(dosya_ismi, "wb") # dosyayı oluşturduk
@@ -70,8 +74,11 @@ while True:
         continue
 
     # Dosya gönderme
-    if command.lower() == "gonder" or "upload":
-        dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
+    if splited_command[0].lower() == "gonder" or "upload":
+        if splited_command[1:] == "":
+            dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
+        else:
+            dosya_ismi = splited_command[1:]
 
         client_socket.send(dosya_ismi.encode()) # Göndereceğimiz dosyanın isim bilgisini karşı tarafa ilettik
         

