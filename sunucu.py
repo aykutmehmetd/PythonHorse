@@ -55,7 +55,11 @@ while True:
                 print("Dosya aktarımı bitti.")
 
                 baglanti.close()
-                pport += 1
+
+                if pport == PORT+5:
+                    pport = PORT
+                else:
+                    pport += 1
                 baglanti = socket.socket()
                 baglanti.bind((HOST, pport))
                 baglanti.listen(1)
@@ -79,7 +83,11 @@ while True:
 
             client_socket.close()
             baglanti.close()
-            pport += 1
+
+            if pport == PORT+5:
+                pport = PORT
+            else:
+                pport += 1
             baglanti = socket.socket()
             baglanti.bind((HOST, pport))
             baglanti.listen(1)
@@ -123,7 +131,11 @@ while True:
 
         client_socket.send("quit".encode())
         baglanti.close()
-        pport += 1
+
+        if pport == PORT+5:
+            pport = PORT
+        else:
+            pport += 1
         baglanti = socket.socket()
         baglanti.bind((HOST, pport))
         baglanti.listen(1)
