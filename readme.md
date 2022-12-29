@@ -8,7 +8,7 @@ socket kütüphanesi python kurulduğunda python ile birlikte yüklü gelmektedi
 
 indir = dosya indirme komutu\
 gonder = dosya gönderme komutu\
-webcam_izle = webcam izleme komutu\
+webcam_izle = webcam izleme komutu
 
 download = download file\
 upload = upload file\
