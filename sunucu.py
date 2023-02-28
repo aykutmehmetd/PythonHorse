@@ -53,7 +53,8 @@ while True:
         
         file = open(dosya_ismi, "wb") # dosyayı oluşturduk
 
-        #filesize = client_socket.recv(1024).decode()
+        #filesize = client_socket.recv(1024).decode() #bayt belirtmeden dosya boyutunu almayı denersek olumlu bir sonuç elde edebiliriz diye düşünüyorum. 28.02.2023
+        #filesize = client_sockter.recv().decode() #bu şekilde olmalı yani. 28.02.2023 #daha denemedim ama deneyeceğim.
         #filesize = int(filesize)
 
         #progress = tqdm.tqdm(range(filesize), f"Alınıyor {dosya_ismi}", unit="B", unit_scale=True, unit_divisor=1024)
